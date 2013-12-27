@@ -28,15 +28,21 @@
 <body>
 <script type="text/javascript">
 
-    var w = 800;
-    var h = 300;
+    var w = 1000;
+    var h = 900;
     var padding = 40;
 
 
+    function drawLine(svg, line, asks) {
+        svg.append("path")
+                .attr("d", line(asks))
+                .attr("stroke", "blue")
+                .attr("stroke-width", 2)
+                .attr("fill", "none");
+    }
+    function visualise(data){
 
-function visualise(data){
-
-    var asks = data.asks;
+        var asks = data.asks;
     var bids = data.bids;
 
 
@@ -131,6 +137,13 @@ function visualise(data){
             .attr("class", "axis")
             .attr("transform", "translate(" + padding + ",0)")
             .call(yAxis);
+
+    var line = d3.svg.line()
+            .x(function(d){return xScale(d[0]);} )
+            .y(function(d){ return yScale(d[1]);});
+
+   drawLine(svg, line, asks);
+   drawLine(svg, line, bids);
 
 }
 
