@@ -1,0 +1,15 @@
+{
+  "name": "market",
+  "version": "0.0.0",
+  "description": "bitcoin market depth ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "btce": "~0.4.4",
+    "express": "~3.4.7"
+  }
+}
