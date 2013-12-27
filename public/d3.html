@@ -1,0 +1,146 @@
+<html>
+<head>
+    <title>Bitcoin Market Depth</title>
+    <script type="text/javascript" src="d3.v3.min.js"></script>
+    <style type="text/css">
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+
+        .ask {
+            fill: red;
+        }
+
+        .bid {
+            fill: green;
+        }
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+
+    var w = 800;
+    var h = 300;
+    var padding = 40;
+
+
+
+function visualise(data){
+
+    var asks = data.asks;
+    var bids = data.bids;
+
+
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+
+    var asksMin = d3.min(asks, function (d) {
+        return d[0];
+    });
+
+    var bidsMin = d3.min(bids, function (d) {
+        return d[0];
+    });
+    var asksMax = d3.max(asks, function (d) {
+        return d[0];
+    });
+    var bidsMax = d3.max(asks, function (d) {
+        return d[0];
+    });
+
+    var min = d3.min([asksMin, bidsMin]);
+    var max = d3.min([asksMax, bidsMax]);
+    var domainArray = [ min, max ];
+
+    var xScale = d3.scale.linear()
+            .domain(domainArray)
+            .range([padding, w - padding]);
+
+    var yScale = d3.scale.linear()
+            .domain([0, d3.sum(asks, function (d) {
+                return d[1];
+            })])
+            .range([h - padding, padding]);
+
+    svg.selectAll("circle")
+            .data(asks)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                return xScale(d[0]);
+            })
+            .attr("cy", function (d, i) {
+                var iterData = asks.slice(0, i);
+                var sum = d3.sum(iterData, function (d) {
+                    return d[1];
+                })
+                return yScale(sum);
+            })
+            .attr("r", 2)
+            .attr('class', 'ask');
+
+    svg.selectAll("rect")
+            .data(bids)
+            .enter()
+            .append("rect")
+
+            .attr("x", function (d) {
+                return xScale(d[0]);
+            })
+            .attr("y", function (d, i) {
+                var iterData = asks.slice(0, i);
+                var sum = d3.sum(iterData, function (d) {
+                    return d[1];
+                })
+                return yScale(sum);
+            })
+            .attr("width", 3)
+            .attr("height", 3)
+            .attr('class', 'bid');
+
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .ticks(10);  //Set rough # of ticks
+
+
+    svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (h - padding) + ")")
+            .call(xAxis);
+
+
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .ticks(10);
+
+    svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding + ",0)")
+            .call(yAxis);
+
+}
+
+
+d3.json('/btce.json', function(data){
+    visualise(data);
+});
+
+</script>
+</body>
+</html>
+
+
