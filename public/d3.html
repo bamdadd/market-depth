@@ -23,6 +23,10 @@
             fill: green;
         }
 
+        .sell {
+            fill: black;
+        }
+
     </style>
 </head>
 <body>
@@ -61,8 +65,9 @@
                 .attr('class', elementClass);
     }
 
-    function visualise(data) {
 
+    function visualise(data, ticker) {
+        console.log(ticker);
         var asks = data.asks;
         var bids = data.bids;
 
@@ -73,10 +78,18 @@
                 .attr("height", h)
                 .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
 
-        var asksMin = d3.min(asks, function (d) { return d[0]; });
-        var bidsMin = d3.min(bids, function (d) { return d[0]; });
-        var asksMax = d3.max(asks, function (d) { return d[0]; });
-        var bidsMax = d3.max(asks, function (d) { return d[0]; });
+        var asksMin = d3.min(asks, function (d) {
+            return d[0];
+        });
+        var bidsMin = d3.min(bids, function (d) {
+            return d[0];
+        });
+        var asksMax = d3.max(asks, function (d) {
+            return d[0];
+        });
+        var bidsMax = d3.max(asks, function (d) {
+            return d[0];
+        });
 
         var min = d3.min([asksMin, bidsMin]);
         var max = d3.min([asksMax, bidsMax]);
@@ -129,10 +142,27 @@
                     return yScale(d[1]);
                 });
 
-    function zoom(){
-        console.log('zoom');
-        svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
+        function zoom() {
+            console.log('zoom');
+            svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        svg.append("line")
+                .attr("x1", xScale(ticker.ticker.sell))
+                .attr("y1", 0+padding)
+                .attr("x2", xScale(ticker.ticker.sell))
+                .attr("y2", h-padding)
+                .attr("stroke-width", 2)
+                .attr("stroke", "black");
+
+        svg.append("line")
+                .attr("x1", xScale(ticker.ticker.buy))
+                .attr("y1", 0+padding)
+                .attr("x2", xScale(ticker.ticker.buy))
+                .attr("y2", h-padding)
+                .attr("stroke-width", 2)
+                .attr("stroke", "yellow");
+
 
         drawLineFor(asks, svg, line);
         drawLineFor(bids, svg, line);
@@ -141,8 +171,13 @@
 
 
     function getDataAndRender() {
-        d3.json('/btce.json', function (data) {
-            visualise(data);
+        var ticker;
+        d3.json('/ticker.json', function (data) {
+            ticker = data;
+        });
+
+        d3.json('/depth.json', function (data) {
+            visualise(data, ticker);
         });
     }
     getDataAndRender();

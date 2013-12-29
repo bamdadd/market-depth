@@ -5,8 +5,7 @@ var btce = new BTCE('YOUR-KEY', 'YOUR-SECRET');
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/btce.json', function (req, res) {
-    var body = 'Hello World';
+app.get('/depth.json', function (req, res) {
 
     btce.depth({
             "from": 0,
@@ -19,6 +18,12 @@ app.get('/btce.json', function (req, res) {
     );
 });
 
+app.get('/ticker.json', function (req, res) {
+
+    btce.ticker({ pair: 'btc_usd' }, function (err, data) {
+        res.end(JSON.stringify(data));
+    });
+});
 
 
 app.listen(3000);
