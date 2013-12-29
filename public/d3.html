@@ -33,9 +33,9 @@
     var padding = 40;
 
 
-    function drawLine(svg, line, asks) {
+    function drawLineFor(type, svg, line) {
         svg.append("path")
-                .attr("d", line(asks))
+                .attr("d", line(type))
                 .attr("stroke", "blue")
                 .attr("stroke-width", 2)
                 .attr("fill", "none");
@@ -70,8 +70,8 @@
         var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
-                .attr("height", h);
-
+                .attr("height", h)
+                .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
 
         var asksMin = d3.min(asks, function (d) { return d[0]; });
         var bidsMin = d3.min(bids, function (d) { return d[0]; });
@@ -102,7 +102,7 @@
         var xAxis = d3.svg.axis()
                 .scale(xScale)
                 .orient("bottom")
-                .ticks(10);  //Set rough # of ticks
+                .ticks(20);  //Set rough # of ticks
 
 
         svg.append("g")
@@ -114,7 +114,7 @@
         var yAxis = d3.svg.axis()
                 .scale(yScale)
                 .orient("left")
-                .ticks(10);
+                .ticks(20);
 
         svg.append("g")
                 .attr("class", "axis")
@@ -129,15 +129,23 @@
                     return yScale(d[1]);
                 });
 
-        drawLine(svg, line, asks);
-        drawLine(svg, line, bids);
+    function zoom(){
+        console.log('zoom');
+        svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    }
+
+        drawLineFor(asks, svg, line);
+        drawLineFor(bids, svg, line);
 
     }
 
 
-    d3.json('/btce.json', function (data) {
-        visualise(data);
-    });
+    function getDataAndRender() {
+        d3.json('/btce.json', function (data) {
+            visualise(data);
+        });
+    }
+    getDataAndRender();
 
 </script>
 </body>

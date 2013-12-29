@@ -9,6 +9,8 @@ app.get('/btce.json', function (req, res) {
     var body = 'Hello World';
 
     btce.depth({
+            "from": 0,
+            "count": 5000,
             "pair": "btc_usd"
         },
         function (err, data) {
