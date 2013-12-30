@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/depth.json', function (req, res) {
     var pair = req.query.pair || 'btc_usd';
-    var limit = req.query.limit || 1000;
+    var limit = req.query.zoom || 1000;
 
     console.log(req.query);
 

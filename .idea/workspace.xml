@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a05c5cd6-b2bf-40bc-990c-8bada305e2a1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/d3.html" afterPath="$PROJECT_DIR$/public/d3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/market.js" afterPath="$PROJECT_DIR$/market.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +27,28 @@
       <file leaf-file-name="d3.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/d3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="9" selection-start="2374" selection-end="2374" vertical-scroll-proportion="0.6711004" vertical-offset="795" max-vertical-offset="3135">
+            <state line="54" column="90" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.56037515" vertical-offset="332" max-vertical-offset="3570">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="d3.slider.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/d3.slider.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="87" column="1" selection-start="1370" selection-end="1370" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1395">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="d3.slider.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/d3.slider.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="260" column="0" selection-start="7386" selection-end="7386" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3990">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,7 +56,7 @@
       <file leaf-file-name="market.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/market.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="4" selection-start="316" selection-end="316" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="600">
+            <state line="15" column="26" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
               <folding />
             </state>
           </provider>
@@ -70,6 +88,8 @@
         <option value="$PROJECT_DIR$/data.json" />
         <option value="$PROJECT_DIR$/d3.html" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/public/slider.js" />
+        <option value="$PROJECT_DIR$/public/d3.slider.css" />
         <option value="$PROJECT_DIR$/market.js" />
         <option value="$PROJECT_DIR$/public/d3.html" />
       </list>
@@ -245,13 +265,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/market.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="4" selection-start="316" selection-end="316" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="3" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="315">
@@ -259,9 +272,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/d3.slider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="260" column="0" selection-start="7386" selection-end="7386" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3990">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/d3.slider.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="1" selection-start="1370" selection-end="1370" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1395">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/market.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="26" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/d3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="9" selection-start="2374" selection-end="2374" vertical-scroll-proportion="0.6711004" vertical-offset="795" max-vertical-offset="3135">
+        <state line="54" column="90" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.56037515" vertical-offset="332" max-vertical-offset="3570">
           <folding />
         </state>
       </provider>

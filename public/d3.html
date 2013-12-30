@@ -2,7 +2,18 @@
 <head>
     <title>Bitcoin Market Depth</title>
     <script type="text/javascript" src="d3.v3.min.js"></script>
+    <script type="text/javascript" src="d3.slider.js"></script>
+
+    <link rel="stylesheet" href="d3.slider.css"/>
+
     <style type="text/css">
+        .slider {
+            margin-bottom: 20px;
+            margin-top: 20px;
+            margin-left: 20px;
+            width: 30%;
+        }
+
         .axis path,
         .axis line {
             fill: none;
@@ -30,13 +41,23 @@
     </style>
 </head>
 <body>
-<button onclick="getDataAndRender('ltc_usd')">LTC/USD</button>
-<button onclick="getDataAndRender('ltc_btc')">LTC/BTC</button>
+<div class="control">
+
+    <button onclick="getDataAndRender('btc_usd')">BTC/USD</button>
+    <button onclick="getDataAndRender('ltc_usd')">LTC/USD</button>
+    <button onclick="getDataAndRender('ltc_btc')">LTC/BTC</button>
+    <div class="slider"></div>
+</div>
 
 <script type="text/javascript">
+    var current_pair = 'btc_usd';
+
+    d3.select('.slider').call(d3.slider().axis(true).min(0).max(2000).step(50).value(1000).on('slide',function(e,v){
+        getDataAndRender(current_pair, v);
+    }));
 
     var w = 1000;
-    var h = 900;
+    var h = 800;
     var padding = 40;
 
 
@@ -74,11 +95,12 @@
         var bids = data.bids;
 
         function removeSvg() {
-            d3.select('svg').remove();
+            d3.select('svg.graph').remove();
             return d3.select("body")
                     .append("svg")
                     .attr("width", w)
                     .attr("height", h)
+                    .attr("class", 'graph')
                     .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
         }
 
@@ -87,6 +109,7 @@
                     .append("svg")
                     .attr("width", w)
                     .attr("height", h)
+                    .attr("class", 'graph')
                     .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
         }
 
@@ -158,22 +181,22 @@
 
         function zoom() {
             console.log('zoom');
-//            svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         }
 
         svg.append("line")
                 .attr("x1", xScale(ticker.ticker.sell))
-                .attr("y1", 0+padding)
+                .attr("y1", 0 + padding)
                 .attr("x2", xScale(ticker.ticker.sell))
-                .attr("y2", h-padding)
+                .attr("y2", h - padding)
                 .attr("stroke-width", 2)
                 .attr("stroke", "black");
 
         svg.append("line")
                 .attr("x1", xScale(ticker.ticker.buy))
-                .attr("y1", 0+padding)
+                .attr("y1", 0 + padding)
                 .attr("x2", xScale(ticker.ticker.buy))
-                .attr("y2", h-padding)
+                .attr("y2", h - padding)
                 .attr("stroke-width", 2)
                 .attr("stroke", "pink");
 
@@ -184,10 +207,16 @@
     }
 
 
-    function getDataAndRender(pair) {
-        d3.json('/ticker.json?pair=' + pair, function (data) {
+    function getDataAndRender(pair, zoom) {
+        current_pair = pair;
+
+        var zoom_query;
+        if (zoom)   zoom_query = '&zoom=' + zoom;
+        else        zoom_query = '';
+
+        d3.json('/ticker.json?pair=' + pair , function (data) {
             var ticker = data;
-            d3.json('/depth.json?pair=' + pair, function (data) {
+            d3.json('/depth.json?pair=' + pair + zoom_query, function (data) {
                 visualise(data, ticker);
             });
         });
